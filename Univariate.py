@@ -20,7 +20,7 @@ def freqTable(coulmName,dataset):
     freqTable["Cumsum"]= freqTable["Relative_Freqency"].cumsum()
     return freqTable
 def Univariate(dataset,quan):
-    descriptive=pd.DataFrame(index=["MEAN","MEDIAN","MODE","Q1:25%","Q2:50%","Q3:75%","99%","Q4:100%","IQR","1.5 rule","Lesser","Greater","Min","Max"],columns=quan)
+    descriptive=pd.DataFrame(index=["MEAN","MEDIAN","MODE","Q1:25%","Q2:50%","Q3:75%","99%","Q4:100%","IQR","1.5 rule","Lesser","Greater","Min","Max","skew","kurtosis"],columns=quan)
     for columName in quan:
         descriptive[columName]["MEAN"]=dataset[columName].mean()
         descriptive[columName]["MEDIAN"]=dataset[columName].median()
@@ -36,7 +36,10 @@ def Univariate(dataset,quan):
         descriptive[columName]["Greater"]=descriptive[columName]["Q3:75%"]+ descriptive[columName]["1.5 rule"]
         descriptive[columName]["Min"]=dataset[columName].min()
         descriptive[columName]["Max"]=dataset[columName].max()
+        descriptive[columName]["skew"]=dataset[columName].skew()
+        descriptive[columName]["kurtosis"]=dataset[columName].kurtosis()
     return descriptive
+    
 Lesser=[]
 Greater=[]
 def Outliear_Columname(descriptive,quan):
